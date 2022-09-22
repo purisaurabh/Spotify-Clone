@@ -7,16 +7,17 @@ let audio_element = new Audio('../1_Material/songs/1.mp3');
 let master_play = document.getElementById('master_play');
 let my_progress_bar = document.getElementById('my_progress_bar');
 let gif = document.getElementById('gif');
+let song_item = Array.from(document.getElementsByClassName('song_item'));
 
 let songs = [
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
-    {song_name: "Salaam-e-Ishq" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"}
+    {song_name: "Warriya- Mortal [NCS Release]" , file_path : "../1_Material/songs/1.mp3" , cover_path : "../1_Material/covers/1.jpg"},
+    {song_name: "Allan Wlaker [NCS Release]" , file_path : "../1_Material/songs/2.mp3" , cover_path : "../1_Material/covers/2.jpg"},
+    {song_name: "DEAF-KEY [NCS Release]" , file_path : "../1_Material/songs/3.mp3" , cover_path : "../1_Material/covers/3.jpg"},
+    {song_name: "Deal-make [NCS Release]" , file_path : "../1_Material/songs/4.mp3" , cover_path : "../1_Material/covers/4.jpg"},
+    {song_name: "Bobber-death [NCS Release]" , file_path : "../1_Material/songs/5.mp3" , cover_path : "../1_Material/covers/5.jpg"},
+    {song_name: "This-make-happy [NCS Release]" , file_path : "../1_Material/songs/6.mp3" , cover_path : "../1_Material/covers/6.jpg"},
+    {song_name: "Let me done [NCS Release]" , file_path : "../1_Material/songs/7.mp3" , cover_path : "../1_Material/covers/7.jpg"},
+    {song_name: "Want-to [NCS Release]" , file_path : "../1_Material/songs/8.mp3" , cover_path : "../1_Material/covers/8.jpg"}
 ]
 
 // audio_element.play();
@@ -64,17 +65,41 @@ my_progress_bar.addEventListener('change' , ()=>
 
 
 
+song_item.forEach((element , i) =>
+{
+    element.getElementsByTagName("img")[0].src = songs[i].cover_path;
+    element.getElementsByClassName("song_name")[0].innerText = songs[i].song_name;
+}); 
 
 
 
 
+// to change the song from the list
 
+const make_all_play = ()=>
+{
+    Array.from(document.getElementsByClassName('song_item_play')).forEach((element)=>
+    {
+        element.classList.remove('fa-pause');
+        element.classList.add('fa-play');
+    });
+}
 
-
-
-
-
-
+Array.from(document.getElementsByClassName('song_item_play')).forEach((element)=>
+{
+    element.addEventListener('click' , (e)=>
+    {
+        // console.log(e.target);
+        make_all_play();
+        e.target.classList.remove('fa-play');
+        e.target.classList.add('fa-pause');
+        // audio_element.src = `../1_Material/songs/${index+1}.mp3`;
+        // audio_element.currentTime = 0;
+        // audio_element.play();
+        // master_play.classList.remove('fa-play');
+        // master_play.classList.add('fa-pause');
+    });
+})
 
 
 
