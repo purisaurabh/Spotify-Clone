@@ -7,6 +7,7 @@ let audio_element = new Audio('../1_Material/songs/1.mp3');
 let master_play = document.getElementById('master_play');
 let my_progress_bar = document.getElementById('my_progress_bar');
 let gif = document.getElementById('gif');
+let master_song_name = document.getElementById('master_song_name');
 let song_item = Array.from(document.getElementsByClassName('song_item'));
 
 let songs = [
@@ -22,7 +23,15 @@ let songs = [
 
 // audio_element.play();
 
+song_item.forEach((element , i) =>
+{
+    element.getElementsByTagName("img")[0].src = songs[i].cover_path;
+    element.getElementsByClassName("song_name")[0].innerText = songs[i].song_name;
+}); 
+
+
 //play/pause click
+
 master_play.addEventListener('click' , ()=>
 {
     if(audio_element.paused || audio_element.currentTime <= 0)
@@ -61,21 +70,7 @@ my_progress_bar.addEventListener('change' , ()=>
 });
 
 
-
-
-
-
-song_item.forEach((element , i) =>
-{
-    element.getElementsByTagName("img")[0].src = songs[i].cover_path;
-    element.getElementsByClassName("song_name")[0].innerText = songs[i].song_name;
-}); 
-
-
-
-
 // to change the song from the list
-
 const make_all_play = ()=>
 {
     Array.from(document.getElementsByClassName('song_item_play')).forEach((element)=>
@@ -85,33 +80,68 @@ const make_all_play = ()=>
     });
 }
 
+
+
 Array.from(document.getElementsByClassName('song_item_play')).forEach((element)=>
 {
     element.addEventListener('click' , (e)=>
     {
         // console.log(e.target);
         make_all_play();
+        song_index = parseInt(e.target.id);
         e.target.classList.remove('fa-play');
         e.target.classList.add('fa-pause');
-        // audio_element.src = `../1_Material/songs/${index+1}.mp3`;
-        // audio_element.currentTime = 0;
-        // audio_element.play();
-        // master_play.classList.remove('fa-play');
-        // master_play.classList.add('fa-pause');
+        audio_element.src = `../1_Material/songs/${index+1}.mp3`;
+        master_song_name.innerText = songs[song_index].song_name;
+        audio_element.currentTime = 0;
+        audio_element.play();
+        gif.style.opacity = 1;
+        master_play.classList.remove('fa-play');
+        master_play.classList.add('fa-pause');
     });
 })
 
 
 
+document.getElementById('next').addEventListener('click' , ()=>
+{
+    if(song_index >= 7)
+    {
+        song_index = 0;
+    }   
+
+    else
+    {
+        song_index += 1;
+    }
+
+    audio_element.src = `../1_Material/songs/${song_index+1}.mp3`;
+    master_song_name.innerText = songs[song_index].song_name;
+    audio_element.currentTime = 0;
+    audio_element.play();
+    gif.style.opacity = 1;
+    master_play.classList.remove('fa-play');
+    master_play.classList.add('fa-pause');
+});
 
 
+document.getElementById('previous').addEventListener('click', ()=>
+{
+    if(song_index <= 0)
+    {
+        song_index = 0;
+    }
 
+    else{
+        song_index -= 1;
+    }
 
-
-
-
-
-
+    audio_element.src = `../1_Material/songs/${song_index+1}.mp3`;
+    master_song_name.innerText = songs[song_index].song_name;
+    audio_element.play();
+    master_play.classList.remove('fa-play');
+    master_play.classList.add('fa-pause');
+});
 
 
 
